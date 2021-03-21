@@ -11,7 +11,9 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 })
 export class AppComponent {
   adding = false;
+  editing = false;
   habitForm: FormGroup;
+  private editingIndex = -1;
 
   constructor(
     private readonly habitsService: HabitService,
@@ -39,9 +41,24 @@ export class AppComponent {
   public onSubmit(): void {
 
     if (this.habitForm.valid ) {
-      this.habitsService.save(this.habitForm.value);
+      const habit = this.habitForm.value as Habit;
+
+      if (this.editing) {
+        this.habitsService.update(habit, this.editingIndex);
+        this.editingIndex = -1;
+      } else {
+        this.habitsService.save(habit);
+      }
+
       this.adding = false;
+      this.editing = false;
     }
 
+  }
+
+  public onEditHabit(selectedHabit: Habit, index: number): void {
+    this.habitForm.patchValue(selectedHabit);
+    this.editing = true;
+    this.editingIndex = index;
   }
 }

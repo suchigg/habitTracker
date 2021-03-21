@@ -3,7 +3,7 @@
   <h1>Habit Tracker</h1>
 </mat-toolbar>
 
-<section class="add-form-container" *ngIf="adding">
+<section class="add-form-container" *ngIf="adding || editing">
   <mat-card>
     <mat-card-title>Add New Habit </mat-card-title>
     <hr />
@@ -42,12 +42,12 @@
   </mat-card>
 </section>
 
-<section class="all-habits" *ngIf="!adding">
+<section class="all-habits" *ngIf="!adding && !editing">
   <h1>All Habits</h1>
   <button mat-raised-button color="accent" (click)="adding = !adding">
     Add New Habit
   </button>
-  <div *ngFor="let habit of habits | async">
+  <div *ngFor="let habit of habits | async; let i = index;">
     <mat-card>
       <mat-card-title>
         <mat-icon class="habit-icon" color="accent" aria-hidden="false" aria-label="circle check mark icon">
@@ -55,7 +55,7 @@
         {{ habit.name }}
       </mat-card-title>
       <div class="detail-options">
-        <mat-icon class="habit-icon" color="primary">edit</mat-icon>
+        <mat-icon class="habit-icon" color="primary" (click)="onEditHabit(habit, i)">edit</mat-icon>
         <mat-icon class="habit-icon" color="warn">remove_circle</mat-icon>
       </div>
       <mat-card-content>

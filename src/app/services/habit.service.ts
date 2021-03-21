@@ -35,4 +35,8 @@ export class HabitService {
   public save(value: Habit): void {
     this.habits.push(value);
   }
+
+  public update(value: Habit, editingIndex: number): void {
+    this.habits.splice(editingIndex, 1, value);
+  }
 }
