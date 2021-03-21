@@ -2,3 +2,30 @@
   <mat-icon aria-hidden="false" aria-label="check mark icon">fact_check</mat-icon>
   <h1>Habit Tracker</h1>
 </mat-toolbar>
+
+
+<section class="all-habits">
+  <h1>All Habits</h1>
+  <div *ngFor="let habit of habits | async">
+    <mat-card>
+      <mat-card-title>
+        <mat-icon class="habit-icon" color="accent" aria-hidden="false" aria-label="circle check mark icon">
+          check_circle_outline</mat-icon>
+        {{ habit.name }}
+      </mat-card-title>
+      <div class="detail-options">
+        <mat-icon class="habit-icon" color="primary">edit</mat-icon>
+        <mat-icon class="habit-icon" color="warn">remove_circle</mat-icon>
+      </div>
+      <mat-card-content>
+        <p>
+          <span class="detail-label">Frequency:</span> {{ habit.frequency }}
+        </p>
+        <p>
+          <span class="detail-label">Why is this habit important to me?</span>
+          <br />{{ habit.description }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

@@ -1,3 +1,6 @@
+import { Habit } from './models/habit.model';
+import { Observable } from 'rxjs';
+import { HabitService } from './services/habit.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +10,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'habitTracker';
+
+  constructor(private readonly habitsService: HabitService ) {}
+
+  get habits(): Observable<Habit[]> {
+    return this.habitsService.findAll();
+  }
 }
