@@ -21,6 +21,7 @@ export const HABIT_ELEMENTS_INIT_DATA: Habit[] = [
   providedIn: 'root',
 })
 export class HabitService {
+
   private habits: Habit[];
 
   constructor() {
@@ -29,5 +30,9 @@ export class HabitService {
 
   public findAll(): Observable<Habit[]> {
     return of(this.habits);
+  }
+
+  public save(value: Habit): void {
+    this.habits.push(value);
   }
 }

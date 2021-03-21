@@ -3,9 +3,50 @@
   <h1>Habit Tracker</h1>
 </mat-toolbar>
 
+<section class="add-form-container" *ngIf="adding">
+  <mat-card>
+    <mat-card-title>Add New Habit </mat-card-title>
+    <hr />
+    <form  [formGroup]="habitForm" (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="name?.invalid">Title is required</mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="fill">
+          <mat-label>Frequency</mat-label>
+          <mat-select formControlName="frequency">
+            <mat-option value="Daily">Daily</mat-option>
+            <mat-option value="Weekly">Weekly</mat-option>
+            <mat-option value="Monthly">Monthly</mat-option>
+          </mat-select>
+          <mat-error *ngIf="frequency?.invalid">Frequency is required</mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="Why is this habit important to you?"
+          ></textarea>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" type="submit">Save</button>
+        <button mat-raised-button (click)="adding = false">Cancel</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>
 
-<section class="all-habits">
+<section class="all-habits" *ngIf="!adding">
   <h1>All Habits</h1>
+  <button mat-raised-button color="accent" (click)="adding = !adding">
+    Add New Habit
+  </button>
   <div *ngFor="let habit of habits | async">
     <mat-card>
       <mat-card-title>
