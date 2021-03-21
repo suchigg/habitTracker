@@ -1,8 +1,8 @@
-import { Habit } from './models/habit.model';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { Habit } from './models/habit.model';
 import { HabitService } from './services/habit.service';
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,50 +12,27 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 export class AppComponent {
   adding = false;
   editing = false;
-  habitForm: FormGroup;
+  selectedHabit: Habit | undefined;
   private editingIndex = -1;
 
-  constructor(
-    private readonly habitsService: HabitService,
-    private readonly fb: FormBuilder
-  ) {
-    this.habitForm = this.fb.group({
-      name: [undefined, [Validators.required]],
-      frequency: [undefined, [Validators.required]],
-      description: [undefined],
-    });
-  }
-
-  get name(): AbstractControl | null {
-    return this.habitForm.get('name');
-  }
-
-  get frequency(): AbstractControl | null {
-    return this.habitForm.get('frequency');
-  }
+  constructor(private readonly habitsService: HabitService) {}
 
   get habits(): Observable<Habit[]> {
     return this.habitsService.findAll();
   }
 
-  public onSubmit(): void {
-
-    if (this.habitForm.valid ) {
-      const habit = this.habitForm.value as Habit;
+  public onSubmit(habit: Habit): void {
 
       if (this.editing) {
         this.habitsService.update(habit, this.editingIndex);
       } else {
         this.habitsService.save(habit);
       }
-
       this.exitFromForm();
-    }
-
   }
 
   public onEditHabit(selected: {habit: Habit, index: number}): void {
-    this.habitForm.patchValue(selected.habit);
+    this.selectedHabit = selected.habit;
     this.editing = true;
     this.editingIndex = selected.index;
   }
@@ -72,5 +49,6 @@ export class AppComponent {
     this.adding = false;
     this.editing = false;
     this.editingIndex = -1;
-    this.habitForm.reset();  }
+    this.selectedHabit = undefined;
+  }
 }

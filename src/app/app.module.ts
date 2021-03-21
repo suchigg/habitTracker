@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HabitsComponent } from './habits/habits.component';
+import { HabitFormComponent } from './habit-form/habit-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HabitsComponent
+    HabitsComponent,
+    HabitFormComponent
   ],
   imports: [
     BrowserModule,
