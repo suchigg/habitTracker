@@ -21,7 +21,6 @@ export const HABIT_ELEMENTS_INIT_DATA: Habit[] = [
   providedIn: 'root',
 })
 export class HabitService {
-
   private habits: Habit[];
 
   constructor() {
@@ -38,5 +37,9 @@ export class HabitService {
 
   public update(value: Habit, editingIndex: number): void {
     this.habits.splice(editingIndex, 1, value);
+  }
+
+  public delete(index: number): void {
+    this.habits.splice(index, 1);
   }
 }

@@ -45,13 +45,11 @@ export class AppComponent {
 
       if (this.editing) {
         this.habitsService.update(habit, this.editingIndex);
-        this.editingIndex = -1;
       } else {
         this.habitsService.save(habit);
       }
 
-      this.adding = false;
-      this.editing = false;
+      this.exitFromForm();
     }
 
   }
@@ -61,4 +59,18 @@ export class AppComponent {
     this.editing = true;
     this.editingIndex = index;
   }
+
+  public onDeleteHabit(index: number): void {
+    this.habitsService.delete(index);
+  }
+
+  public onCancel(): void {
+    this.exitFromForm();
+  }
+
+  private exitFromForm(): void {
+    this.adding = false;
+    this.editing = false;
+    this.editingIndex = -1;
+    this.habitForm.reset();  }
 }

@@ -36,7 +36,7 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="accent" type="submit">Save</button>
-        <button mat-raised-button (click)="adding = false">Cancel</button>
+        <button mat-raised-button (click)="onCancel()">Cancel</button>
       </mat-card-actions>
     </form>
   </mat-card>
@@ -56,7 +56,7 @@
       </mat-card-title>
       <div class="detail-options">
         <mat-icon class="habit-icon" color="primary" (click)="onEditHabit(habit, i)">edit</mat-icon>
-        <mat-icon class="habit-icon" color="warn">remove_circle</mat-icon>
+        <mat-icon class="habit-icon" color="warn" (click)="onDeleteHabit(i)">remove_circle</mat-icon>
       </div>
       <mat-card-content>
         <p>
