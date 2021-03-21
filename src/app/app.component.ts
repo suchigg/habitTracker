@@ -54,10 +54,10 @@ export class AppComponent {
 
   }
 
-  public onEditHabit(selectedHabit: Habit, index: number): void {
-    this.habitForm.patchValue(selectedHabit);
+  public onEditHabit(selected: {habit: Habit, index: number}): void {
+    this.habitForm.patchValue(selected.habit);
     this.editing = true;
-    this.editingIndex = index;
+    this.editingIndex = selected.index;
   }
 
   public onDeleteHabit(index: number): void {
